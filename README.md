@@ -17,10 +17,9 @@ $ RUN scp -i bar example.com:/dev/null
 # Installation
 ```sh
 $ git clone https://github.com/ernandos/vim-header-composer.git 
-$ sudo mkdir -p /opt/vim-header-composer
-$ sudo mv vim-header-composer /opt/vim-header-composer
-$ sudo ln -s /opt/vim-header-composer/vim-header-composer /usr/local/bin
-$ echo 'map <F2> :!vhc' >> ~/.vim/vimrc
+$ sudo mv vim-header-composer /opt/
+$ sudo ln -s /opt/vim-header-composer/vhc /usr/local/bin
+$ echo 'map <F2> :!vhc' >> ~/.vimrc
 ```
 
 # Usage
