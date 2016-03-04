@@ -3,7 +3,7 @@
 VIM header composer is an utility script wrote in shell very simple to make header's based on comments in vim such as
 above. 
 
-The string will always be put in the middle and fulfilled with a serious of characters "##".
+The string will be fulfilled with characteres comments "#"
 
 ```sh
 ############################################
