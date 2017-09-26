@@ -1,10 +1,19 @@
 #!/usr/bin/env bash
 
-# wat if we have more than one line?
-while read string
-do string_length=$((${#string} + 10))
-
-    echo $(printf '%*s' $string_length | tr ' ' '#')
-    echo "#### $string ####"
-    echo $(printf '%*s' $string_length | tr ' ' '#')
+# wat if we have more than one line in JUST ONE HEADER?
+temporary=$(tempfile) || exit 1
+size=0
+while read string;
+do echo "${string}" >> ${temporary}
+    [[  ${#string} -gt ${size} ]] && size=${#string}
 done
+
+size=$(($size + 10))
+
+echo $(printf '%*s' $size | tr ' ' '#')
+while read string
+do
+    spacing=$(printf '%*s' $(($size - ${#string} - 10)))
+    echo "#### $string$spacing ####"
+done < "${temporary}"
+echo $(printf '%*s' $size | tr ' ' '#')
