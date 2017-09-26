@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
-read string
+# wat if we have more than one line?
+while read string
+do string_length=$((${#string} + 10))
 
-string_length=$((${#string}+10))
-
-echo $(printf '%*s' $string_length | tr ' ' '#')
-echo "#### $string ####"
-echo $(printf '%*s' $string_length | tr ' ' '#')
+    echo $(printf '%*s' $string_length | tr ' ' '#')
+    echo "#### $string ####"
+    echo $(printf '%*s' $string_length | tr ' ' '#')
+done
