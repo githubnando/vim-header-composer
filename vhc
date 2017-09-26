@@ -4,10 +4,10 @@ read string
 
 string_length=${#string}
 
-function printComments {
+function str_repeat {
     echo $(printf '%*s' $((string_length=string_length+9)) | tr ' ' '#')
 }
 
-printComments
+str_repeat
 echo "#### $string ####"
-printComments
+str_repeat
