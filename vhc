@@ -3,12 +3,10 @@
 read string
 
 string_length=${#string}
-iteration=$((string_length=string_length+9))
 
 function printComments {
-    echo $(printf '%*s' $iteration | tr ' ' '#')
+    echo $(printf '%*s' $((string_length=string_length+9)) | tr ' ' '#')
 }
-
 
 printComments
 echo "#### $string ####"
