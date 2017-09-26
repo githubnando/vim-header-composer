@@ -1,19 +1,29 @@
-#!/bin/bash
-read string;
+#!/usr/bin/env bash
 
-string_length=${#string};
-iteration=$((string_length=string_length+9));
+# wat if we have more than one line in JUST ONE HEADER?
+temporary=$(tempfile) || exit 1
+size=0
+while read -r string
+do echo "${string}" >> "$temporary"
+    [[  ${#string} -gt ${size} ]] && size=${#string}
+done
 
-function printComments {
-    for (( c=0; c<=$iteration; c++ )); do
-        echo -n '#';
-    done
+size=$((size + 10))
 
-    echo '';
+function str_repeat {
+    printf '%*s' "$1" | tr ' ' "$2"; echo
 }
 
+function line {
+    str_repeat "$size" '#'
+}
 
-printComments;
-echo "#### $string ####";
-printComments;
+trap line \
+EXIT;line
 
+while read -r string
+do  spacing=$(printf '%*s' $((size - ${#string} - 10)))
+    echo "#### $string$spacing ####"
+done < "$temporary"
+
+rm "$temporary"
