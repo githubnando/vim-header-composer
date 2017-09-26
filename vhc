@@ -6,11 +6,7 @@ string_length=${#string}
 iteration=$((string_length=string_length+9))
 
 function printComments {
-    for (( c=0; c<=$iteration; c++ )); do
-        echo -n '#'
-    done
-
-    echo ''
+    echo $(printf '%*s' $iteration | tr ' ' '#')
 }
 
 
