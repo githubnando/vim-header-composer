@@ -10,10 +10,15 @@ done
 
 size=$(($size + 10))
 
-echo $(printf '%*s' $size | tr ' ' '#')
+function str_repeat {
+    echo $(printf '%*s' $1 | tr ' ' "$2")
+
+}
+
+trap "str_repeat $size '#'" \
+EXIT; str_repeat $size '#'
+
 while read string
-do
-    spacing=$(printf '%*s' $(($size - ${#string} - 10)))
+do  spacing=$(printf '%*s' $(($size - ${#string} - 10)))
     echo "#### $string$spacing ####"
 done < "${temporary}"
-echo $(printf '%*s' $size | tr ' ' '#')
