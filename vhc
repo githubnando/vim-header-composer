@@ -2,12 +2,8 @@
 
 read string
 
-string_length=${#string}
+string_length=$((${#string}+10))
 
-function str_repeat {
-    echo $(printf '%*s' $((string_length=string_length+9)) | tr ' ' '#')
-}
-
-str_repeat
+echo $(printf '%*s' $string_length | tr ' ' '#')
 echo "#### $string ####"
-str_repeat
+echo $(printf '%*s' $string_length | tr ' ' '#')
