@@ -19,6 +19,12 @@ done
 
 
 case "${option,,}" in
+	box)
+		adjust=2
+		corner=('+' '+' '+' '+')
+		lines=('-' ' |' '-' '| ')
+		;;
+
 	\*|asterisk)
 		adjust=2
 		corner=('*' '*' '*' '*')
