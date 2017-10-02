@@ -2,29 +2,58 @@
 #
 # wat if we have more than one template?
 
+function config {
+	option=$(echo "$1"|sed -r 's/vhc:([a-z,]*);(.*)$/\1/')
+	string=$(echo "$1"|sed -r 's/vhc:([a-z,]*);(.*)$/\2/')
+}
+
 temporary=$(tempfile) || exit 1
 size=0
 while read -r string
-do echo "${string}" >> "$temporary"
+do
+	[[ "${string:0:4}" == "vhc:" ]] && config "$string"
+
+	echo "${string}" >> "$temporary"
     [[  ${#string} -gt ${size} ]] && size=${#string}
 done
 
-size=$((size + 10))
+
+case "${option,,}" in
+	\*|asterisk)
+		adjust=2
+		corner=('*' '*' '*' '*')
+		lines=('*' ' *' '*' '* ')
+		;;
+
+	ernjs|ernando|*)
+		adjust=8
+		corner=('#' '#' '#' '#')
+		lines=('#' ' ####' '#' '#### ')
+esac
+
 
 function str_repeat {
     printf '%*s' "$1" | tr ' ' "$2"; echo
 }
 
 function line {
-    str_repeat "$size" '#'
+	str_repeat "$((size + adjust))" "$1"
 }
 
-trap line \
-EXIT;line
+function line_top {
+	echo "${corner[0]}$(line "${lines[0]}")${corner[1]}"
+}
+
+function line_bottom {
+	echo "${corner[2]}$(line "${lines[2]}")${corner[3]}"
+}
+
+trap line_top \
+EXIT;line_bottom
 
 while read -r string
-do  spacing=$(printf '%*s' $((size - ${#string} - 10)))
-    echo "#### $string$spacing ####"
+do  spacing=$(printf '%*s' $((size - ${#string})))
+    echo "${lines[3]}${string}${spacing}${lines[1]}"
 done < "$temporary"
 
 rm "$temporary"
