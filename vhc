@@ -25,7 +25,7 @@ case "${option,,}" in
 		lines=('-' ' |' '-' '| ')
 		;;
 
-	\*|asterisk)
+	star|stars|asterisk)
 		adjust=2
 		corner=('*' '*' '*' '*')
 		lines=('*' ' *' '*' '* ')
