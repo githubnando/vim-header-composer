@@ -2,64 +2,60 @@
 #
 # wat if we have more than one template?
 
+temporary=$(mktemp) || exit 1
+_e='echo -e'
+option=
+string=
+size=0
+
 function config {
-	option=$(echo "$1"|sed -r 's/vhc:([a-z,]*);(.*)$/\1/')
-	string=$(echo "$1"|sed -r 's/vhc:([a-z,]*);(.*)$/\2/')
+    o='s/vhc:([a-z,]*);(.*)$/'
+    option=$($_e "$1"|sed -r "${o}"'\1/')
+    string=$($_e "$1"|sed -r "${o}"'\2/')
 }
 
-temporary=$(tempfile) || exit 1
-size=0
 while read -r string
-do
-	[[ "${string:0:4}" == "vhc:" ]] && config "$string"
-
-	echo "${string}" >> "$temporary"
-    [[  ${#string} -gt ${size} ]] && size=${#string}
+do  [[  "${string:0:4}" == "vhc:" ]] && config "${string}"
+    [[  ${#string} -gt  ${size}   ]] && size=${#string}
+    $_e "${string}" >> "${temporary}"
 done
 
-
 case "${option,,}" in
-	box)
-		adjust=2
-		corner=('+' '+' '+' '+')
-		lines=('-' ' |' '-' '| ')
-		;;
-
-	star|stars|asterisk)
-		adjust=2
-		corner=('*' '*' '*' '*')
-		lines=('*' ' *' '*' '* ')
-		;;
-
-	ernjs|ernando|*)
-		adjust=8
-		corner=('#' '#' '#' '#')
-		lines=('#' ' ####' '#' '#### ')
+    sides)               adjust=2; corner=('⎣'   '⎦' '⎡'  '⎤'); lines=(' ' ' ⎥' ' ' '⎢ ' );;
+    prettybox)           adjust=2; corner=('└'   '┘' '┌'  '┐'); lines=('─' ' │' '─' '│ ' );;
+    quotes)              adjust=2; corner=('"'   ' ' ' '  '"'); lines=(' ' ' '  ' ' ' '  );;
+    ccomment)            adjust=2; corner=(' */' ' ' '/*' ' '); lines=(' ' ' '  ' ' ' * ');;
+    lcomment)            adjust=2; corner=('//'  ' ' '//' ' '); lines=(' ' ' '  ' ' '// ');;
+    box)                 adjust=2; corner=('+'   '+' '+'  '+'); lines=('-' ' |' '-' '| ' );;
+    star|stars|asterisk) adjust=2; corner=('*'   '*' '*'  '*'); lines=('*' ' *' '*' '* ' );;
+    ernjs|ernando|*)     adjust=8; corner=('#'   '#' '#'  '#'); lines=('#' ' ####' '#' '#### ')
 esac
 
-
 function str_repeat {
-    printf '%*s' "$1" | tr ' ' "$2"; echo
+    n=$1
+    while [[ $n -gt 0 ]]
+    do  $_e  -n "$2"
+        n=$(( n - 1 ))
+    done
 }
 
 function line {
-	str_repeat "$((size + adjust))" "$1"
+    str_repeat "$((size + adjust))" "$1"
 }
 
 function line_top {
-	echo "${corner[0]}$(line "${lines[0]}")${corner[1]}"
+    $_e "${corner[0]}$(line "${lines[0]}")${corner[1]}"
 }
 
 function line_bottom {
-	echo "${corner[2]}$(line "${lines[2]}")${corner[3]}"
+    $_e "${corner[2]}$(line "${lines[2]}")${corner[3]}"
 }
 
-trap line_top \
-EXIT;line_bottom
+trap  line_top \
+EXIT; line_bottom
 
 while read -r string
 do  spacing=$(printf '%*s' $((size - ${#string})))
-    echo "${lines[3]}${string}${spacing}${lines[1]}"
-done < "$temporary"
-
-rm "$temporary"
+    $_e "${lines[3]}${string}${spacing}${lines[1]}"
+done  < "${temporary}"
+rm      "${temporary}"
