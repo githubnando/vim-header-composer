@@ -16,7 +16,7 @@ function config {
 
 while read -r string
 do  [[  "${string:0:4}" == "vhc:" ]] && config "${string}"
-    [[  ${#string} -gt  ${size}   ]] && size=${#string}
+    [[  ${#string} -gt  ${size}   ]] &&   size=${#string}
     $_e "${string}" >> "${temporary}"
 done
 
@@ -40,15 +40,17 @@ function str_repeat {
 }
 
 function line {
-    str_repeat "$((size + adjust))" "$1"
+    [ $# -eq 1 ] \
+        && str_repeat  "$((size + adjust))" "$1" \
+        || $_e "${corner[$1]}$(line "${lines[$1]}")${corner[$2]}"
 }
 
 function line_top {
-    $_e "${corner[0]}$(line "${lines[0]}")${corner[1]}"
+    line 0 1
 }
 
 function line_bottom {
-    $_e "${corner[2]}$(line "${lines[2]}")${corner[3]}"
+    line 2 3
 }
 
 trap  line_top \
