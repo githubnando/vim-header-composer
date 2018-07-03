@@ -42,7 +42,9 @@ function str_repeat {
 function line {
     [ $# -eq 1 ] \
         && str_repeat  "$((size + adjust))" "$1" \
-        || $_e "${corner[$1]}$(line "${lines[$1]}")${corner[$2]}"
+        && exit
+
+    $_e "${corner[$1]}$(line "${lines[$1]}")${corner[$2]}"
 }
 
 function line_top {
