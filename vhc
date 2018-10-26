@@ -9,9 +9,9 @@ string=
 size=0
 
 function config {
-    o='s/vhc:([a-z,]*);(.*)$/'
-    option=$($_e "$1"|sed -r "${o}"'\1/')
-    string=$($_e "$1"|sed -r "${o}"'\2/')
+    search='s/vhc:([a-zA-Z0-9,]*);(.*)$/'
+    option=$($_e "$1"|sed -r "${search}"'\1/')
+    string=$($_e "$1"|sed -r "${search}"'\2/')
 }
 
 while read -r string
