@@ -1,29 +1,65 @@
 #!/usr/bin/env bash
+#
+# wat if we have more than one template?
 
-# wat if we have more than one line in JUST ONE HEADER?
-temporary=$(tempfile) || exit 1
+temporary=$(mktemp) || exit 1
+_e='echo -e'
+option=
+string=
 size=0
+
+function config {
+    search='s/vhc:([a-zA-Z0-9,]*);(.*)$/'
+    option=$($_e "$1"|sed -r "${search}"'\1/')
+    string=$($_e "$1"|sed -r "${search}"'\2/')
+}
+
 while read -r string
-do echo "${string}" >> "$temporary"
-    [[  ${#string} -gt ${size} ]] && size=${#string}
+do  [[  "${string:0:4}" == "vhc:" ]] && config "${string}"
+    [[  ${#string} -gt  ${size}   ]] &&   size=${#string}
+    $_e "${string}" >> "${temporary}"
 done
 
-size=$((size + 10))
+case "${option,,}" in
+    sides)               adjust=2; corner=('⎣'   '⎦' '⎡'  '⎤'); lines=(' ' ' ⎥' ' ' '⎢ ' );;
+    prettybox)           adjust=2; corner=('└'   '┘' '┌'  '┐'); lines=('─' ' │' '─' '│ ' );;
+    quotes)              adjust=2; corner=('"'   ' ' ' '  '"'); lines=(' ' ' '  ' ' ' '  );;
+    ccomment)            adjust=2; corner=(' */' ' ' '/*' ' '); lines=(' ' ' '  ' ' ' * ');;
+    lcomment)            adjust=2; corner=('//'  ' ' '//' ' '); lines=(' ' ' '  ' ' '// ');;
+    box)                 adjust=2; corner=('+'   '+' '+'  '+'); lines=('-' ' |' '-' '| ' );;
+    star|stars|asterisk) adjust=2; corner=('*'   '*' '*'  '*'); lines=('*' ' *' '*' '* ' );;
+    ernjs|ernando|*)     adjust=8; corner=('#'   '#' '#'  '#'); lines=('#' ' ####' '#' '#### ')
+esac
 
 function str_repeat {
-    printf '%*s' "$1" | tr ' ' "$2"; echo
+    n=$1
+    while [[ $n -gt 0 ]]
+    do  $_e  -n "$2"
+        n=$(( n - 1 ))
+    done
 }
 
 function line {
-    str_repeat "$size" '#'
+    [ $# -eq 1 ] \
+        && str_repeat  "$((size + adjust))" "$1" \
+        && exit
+
+    $_e "${corner[$1]}$(line "${lines[$1]}")${corner[$2]}"
 }
 
-trap line \
-EXIT;line
+function line_top {
+    line 0 1
+}
+
+function line_bottom {
+    line 2 3
+}
+
+trap  line_top \
+EXIT; line_bottom
 
 while read -r string
-do  spacing=$(printf '%*s' $((size - ${#string} - 10)))
-    echo "#### $string$spacing ####"
-done < "$temporary"
-
-rm "$temporary"
+do  spacing=$(printf '%*s' $((size - ${#string})))
+    $_e "${lines[3]}${string}${spacing}${lines[1]}"
+done  < "${temporary}"
+rm      "${temporary}"
