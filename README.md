@@ -1,5 +1,7 @@
 # VIM Header Composer
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/25db628e07014abc9b4bb7e7750c916c)](https://app.codacy.com/app/jmurowaniecki/vim-header-composer?utm_source=github.com&utm_medium=referral&utm_content=jmurowaniecki/vim-header-composer&utm_campaign=Badge_Grade_Settings)
+
 VIM header composer is an utility script wrote in shell very simple to make header's based on comments in vim such as above.
 
 The string will be formated and fulfilled with characters following your desired style.
