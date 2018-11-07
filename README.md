@@ -1,6 +1,7 @@
 # VIM Header Composer
 
-[![StyleCI](https://github.styleci.io/repos/103320898/shield?branch=master)](https://github.styleci.io/repos/103320898) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/9ac72e1294504b06b245a7b4d8253029)](https://www.codacy.com/app/jmurowaniecki/vim-header-composer?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jmurowaniecki/vim-header-composer&amp;utm_campaign=Badge_Grade)
+[![StyleCI](https://github.styleci.io/repos/103320898/shield?branch=master)](https://github.styleci.io/repos/103320898)
+[![Codacy](https://api.codacy.com/project/badge/Grade/9ac72e1294504b06b245a7b4d8253029)](https://www.codacy.com/app/jmurowaniecki/vim-header-composer)
 
 VIM header composer is an utility script wrote in shell very simple to make header's based on comments in vim such as above.
 
