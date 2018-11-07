@@ -12,26 +12,25 @@ The string will be formated and fulfilled with characters following your desired
 #### CREATE FILE BAR AND SEND TO SERVER ####
 ############################################
 
-$ RUN echo "foo" > bar
-$ RUN scp -i bar example.com:/dev/null
+RUN echo "foo" > bar
+RUN scp -i bar example.com:/dev/null
 ```
 
 ## Installation
 
 ```sh
-$ git clone https://github.com/ernandos/vim-header-composer.git
-$ sudo mv vim-header-composer /opt/
-$ sudo ln -s /opt/vim-header-composer/vhc /usr/local/bin
-$ echo 'map <F2> :!vhc' >> ~/.vimrc
+git clone https://github.com/ernandos/vim-header-composer.git
+sudo mv vim-header-composer /opt/
+sudo ln -s /opt/vim-header-composer/vhc /usr/local/bin
+echo 'map <F2> :!vhc' >> ~/.vimrc
 ```
 
-## Basic usage
+## Basic usage steps
 
-```
-1 - Open any file
-2 - In normal VIM mode (press <ESC>), select the line with SHIT + V
-3 - Press <F2> and <ENTER>
-```
+0.  Install this script globally;
+1.  Open any file using VI/VIM;
+2.  In normal VIM mode (press <ESC>), select the line with SHIT + V;
+3.  Press <F2\> and <ENTER\>;
 
 ### Using styles
 Instead of using the characters and the standard format you can set the string to process using styles as seen below.
