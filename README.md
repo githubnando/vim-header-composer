@@ -35,19 +35,16 @@ echo 'map <F2> :!vhc' >> ~/.vimrc
 ### Using styles
 Instead of using the characters and the standard format you can set the string to process using styles as seen below.
 
-```
-$ echo "vhc:prettybox;Woooow I'm using prettybox!"|vhc
-
+`echo "vhc:prettybox;Woooow I'm using prettybox!"|vhc`  produces output:
+```text
 ┌─────────────────────────────┐
 │ Woooow I'm using prettybox! │
 └─────────────────────────────┘
-
-$
 ```
 
 #### `sides`
 `echo "vhc:sides;Woooow I'm using sides!"|vhc` produces:
-```
+```text
 ⎡                         ⎤
 ⎢ Woooow I'm using sides! ⎥
 ⎣                         ⎦
@@ -55,7 +52,7 @@ $
 
 #### `prettybox`
 `echo "vhc:prettybox;Woooow I'm using prettybox!"|vhc` produces:
-```
+```text
 ┌─────────────────────────────┐
 │ Woooow I'm using prettybox! │
 └─────────────────────────────┘
@@ -63,7 +60,7 @@ $
 
 #### `quotes`
 `echo "vhc:quotes;Woooow I'm using quotes!"|vhc` produces:
-```
+```text
                            "
   Woooow I'm using quotes!
 "
@@ -71,7 +68,7 @@ $
 
 #### `ccomment`
 `echo "vhc:ccomment;Woooow I'm using ccomment!"|vhc` produces:
-```
+```text
 /*
 * Woooow I'm using ccomment!
 */
@@ -79,7 +76,7 @@ $
 
 #### `lcomment`
 `echo "vhc:lcomment;Woooow I'm using lcomment!"|vhc` produces:
-```
+```text
 //
 // Woooow I'm using lcomment!
 //
@@ -87,7 +84,7 @@ $
 
 #### `box`
 `echo "vhc:box;Woooow I'm using box!"|vhc` produces:
-```
+```text
 +-----------------------+
 | Woooow I'm using box! |
 +-----------------------+
@@ -95,7 +92,7 @@ $
 
 #### `star`, `stars` or `asterisk`
 `echo "vhc:stars;Woooow I'm using stars!"|vhc` produces:
-```
+```text
 ***************************
 * Woooow I'm using stars! *
 ***************************
@@ -103,7 +100,7 @@ $
 
 #### Standart `ernjs` or `ernando`
 `echo "vhc:awesome;Woooow I'm using VHC!"|vhc` produces:
-```
+```text
 ###############################
 #### Woooow I'm using VHC! ####
 ###############################
