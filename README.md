@@ -27,10 +27,10 @@ echo 'map <F2> :!vhc' >> ~/.vimrc
 
 ## Basic usage steps
 
-0.  Install this script globally;
-1.  Open any file using VI/VIM;
-2.  In normal VIM mode (press <ESC>), select the line with SHIT + V;
-3.  Press <F2\> and <ENTER\>;
+1.  Install this script globally;
+2.  Open any file using VI/VIM;
+3.  In normal VIM mode (press <ESC>), select the line with SHIT + V;
+4.  Press <F2\> and <ENTER\>;
 
 ### Using styles
 Instead of using the characters and the standard format you can set the string to process using styles as seen below.
