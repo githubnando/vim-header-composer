@@ -98,7 +98,7 @@ samples: # Build tests and EXAMPLES.md using possible style options.
 	do  TEST=tests/testing_style_$${opt}.sh; \
 		echo "Creating test \e[1m$${opt}\e[0m.."; \
 		echo "------\n### Using '$${opt}'\n" >> $$TARGET; \
-		echo """./vhc <<< \"vhc:"$${opt}";Example using '$${opt}'.\"" > $${TEST}; \
+		echo "#!/usr/bin/env bash\n\n""./vhc <<< \"vhc:"$${opt}";Example using '$${opt}'.\"" > $${TEST}; \
 		echo "Example using \`$$(cat $${TEST})\`.\n\`\`\`" >> $$TARGET; \
 		echo "vhc:$${opt};Example using '$${opt}'." | ./vhc  > $${TEST}.result;\
 		echo "$$(cat $${TEST}.result)\n\`\`\`\n\n\n" >> $$TARGET; \
