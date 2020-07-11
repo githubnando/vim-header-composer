@@ -1,108 +1,64 @@
 # VIM Header Composer
 
+[url-codacy ]: https://www.codacy.com/app/jmurowaniecki/vim-header-composer
+[ico-codacy ]: https://img.shields.io/codacy/grade/9ac72e1294504b06b245a7b4d8253029?logo=codacy&logoColor=green&style=flat-square
+[url-styleci]: https://github.styleci.io/repos/103320898
+[ico-styleci]: https://github.styleci.io/repos/103320898/shield
+[ico-version]: https://img.shields.io/github/v/tag/jmurowaniecki/vim-header-composer?sort=semver&style=flat-square
+
+[![StyleCI][ico-styleci]][url-styleci]
+[![Codacy ][ico-codacy ]][url-codacy]
+[![Version][ico-version]](#)
+
 VIM header composer is an utility script wrote in shell very simple to make header's based on comments in vim such as above.
 
 The string will be formated and fulfilled with characters following your desired style.
 
-```sh
+```text
 ############################################
 #### CREATE FILE BAR AND SEND TO SERVER ####
 ############################################
 
-$ RUN echo "foo" > bar
-$ RUN scp -i bar example.com:/dev/null
+RUN echo "foo" > bar
+RUN scp -i bar example.com:/dev/null
 ```
 
-# Installation
+## Installation
 
+### Yes, you can do it by the old-fashioned way
+Clonning this repository and linking it to your `.../bin/` folder.
 ```sh
-$ git clone https://github.com/ernandos/vim-header-composer.git
-$ sudo mv vim-header-composer /opt/
-$ sudo ln -s /opt/vim-header-composer/vhc /usr/local/bin
-$ echo 'map <F2> :!vhc' >> ~/.vimrc
+git clone git@github.com:ernandojs/vim-header-composer.git
+sudo mv vim-header-composer /opt/
+sudo ln -s /opt/vim-header-composer/vhc /usr/local/bin
+echo 'map <F2> :!vhc' >> ~/.vimrc
 ```
 
-# Basic usage
+### Makefile
+You can also perform installation with `make install`.
 
-```
-1 - Open any file
-2 - In normal VIM mode (press <ESC>), select the line with SHIT + V
-3 - Press <F2> and <ENTER>
-```
 
-## Using styles
+
+## Basic usage steps
+
+1.  Install this script _globally or **not**_;
+2.  Open any file using **VI/VIM**;
+3.  In normal VIM mode (press **<ESC\>**);
+4.  Goto VISUAL mode (select the line - or lines - with **SHIT + V**);
+5.  Press **<F2\>** then **<ENTER\>**;
+
+
+
+### Using styles
 Instead of using the characters and the standard format you can set the string to process using styles as seen below.
 
-```
-$ echo "vhc:prettybox;Woooow I'm using prettybox!"|vhc
 
-┌─────────────────────────────┐
-│ Woooow I'm using prettybox! │
-└─────────────────────────────┘
-
-$
-```
-
-### `sides`
-`$ echo "vhc:sides;Woooow I'm using sides!"|vhc` produces:
-```
-⎡                         ⎤
-⎢ Woooow I'm using sides! ⎥
-⎣                         ⎦
-```
-
-### `prettybox`
-`$ echo "vhc:prettybox;Woooow I'm using prettybox!"|vhc` produces:
-```
+#### Prettybox
+`vhc <<< "vhc:prettybox;Woooow I'm using prettybox!"` produces:
+```text
 ┌─────────────────────────────┐
 │ Woooow I'm using prettybox! │
 └─────────────────────────────┘
 ```
 
-### `quotes`
-`$ echo "vhc:quotes;Woooow I'm using quotes!"|vhc` produces:
-```
-                           "
-  Woooow I'm using quotes!
-"                          
-```
-
-### `ccomment`
-`$ echo "vhc:ccomment;Woooow I'm using ccomment!"|vhc` produces:
-```
-/*                             
-* Woooow I'm using ccomment!
-*/                             
-```
-
-### `lcomment`
-`$ echo "vhc:lcomment;Woooow I'm using lcomment!"|vhc` produces:
-```
-//                             
-// Woooow I'm using lcomment!
-//                             
-```
-
-### `box`
-`$ echo "vhc:box;Woooow I'm using box!"|vhc` produces:
-```
-+-----------------------+
-| Woooow I'm using box! |
-+-----------------------+
-```
-
-### `star`, `stars` or `asterisk`
-`$ echo "vhc:stars;Woooow I'm using stars!"|vhc` produces:
-```
-***************************
-* Woooow I'm using stars! *
-***************************
-```
-
-### Standart `ernjs` or `ernando`
-`$ echo "vhc:awesome;Woooow I'm using VHC!"|vhc` produces:
-```
-###############################
-#### Woooow I'm using VHC! ####
-###############################
-```
+For further information about styles see [more examples](EXAMPLES.md).
